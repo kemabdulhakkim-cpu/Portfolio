@@ -413,9 +413,7 @@ a {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--card-border);
-    color: var(--color-gray-light);
+    transition: var(--transition-normal);
 }
 
 .social-icon-link i,
@@ -426,11 +424,60 @@ a {
     display: inline-block;
 }
 
-.social-icon-link:hover {
-    color: var(--color-cyan);
-    border-color: var(--color-cyan);
-    background: rgba(0, 242, 254, 0.05);
-    box-shadow: var(--shadow-neon-cyan);
+/* Individual Social Icon Colors for visibility and branding */
+.hero-socials .social-icon-link:nth-child(1),
+.footer-socials a:nth-child(1) {
+    color: #00f2fe; /* LinkedIn Cyan */
+    border: 1px solid rgba(0, 242, 254, 0.35);
+    background: rgba(0, 242, 254, 0.03);
+}
+.hero-socials .social-icon-link:nth-child(1):hover,
+.footer-socials a:nth-child(1):hover {
+    color: #05070e;
+    border-color: #00f2fe;
+    background: #00f2fe;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+    transform: translateY(-3px);
+}
+
+.hero-socials .social-icon-link:nth-child(2),
+.footer-socials a:nth-child(2) {
+    color: #f8fafc; /* GitHub White */
+    border: 1px solid rgba(248, 250, 252, 0.35);
+    background: rgba(248, 250, 252, 0.03);
+}
+.hero-socials .social-icon-link:nth-child(2):hover,
+.footer-socials a:nth-child(2):hover {
+    color: #05070e;
+    border-color: #f8fafc;
+    background: #f8fafc;
+    box-shadow: 0 0 15px rgba(248, 250, 252, 0.6);
+    transform: translateY(-3px);
+}
+
+.hero-socials .social-icon-link:nth-child(3) {
+    color: #f093fb; /* Mail Purple */
+    border: 1px solid rgba(240, 147, 251, 0.35);
+    background: rgba(240, 147, 251, 0.03);
+}
+.hero-socials .social-icon-link:nth-child(3):hover {
+    color: #05070e;
+    border-color: #f093fb;
+    background: #f093fb;
+    box-shadow: 0 0 15px rgba(240, 147, 251, 0.6);
+    transform: translateY(-3px);
+}
+
+.hero-socials .social-icon-link:nth-child(4) {
+    color: #10b981; /* Phone Green */
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.03);
+}
+.hero-socials .social-icon-link:nth-child(4):hover {
+    color: #f8fafc;
+    border-color: #10b981;
+    background: #10b981;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
     transform: translateY(-3px);
 }
 
@@ -1510,9 +1557,7 @@ a {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--card-border);
-    color: var(--color-gray-muted);
+    transition: var(--transition-normal);
 }
 
 .footer-socials a i,
@@ -1521,14 +1566,6 @@ a {
     height: 18px;
     stroke-width: 2.2px;
     display: inline-block;
-}
-
-.footer-socials a:hover {
-    color: var(--color-cyan);
-    border-color: var(--color-cyan);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-neon-cyan);
-    background: rgba(0, 242, 254, 0.05);
 }
 
 .copyright-text {

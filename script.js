@@ -414,18 +414,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. Custom Interactive Canvas Background System (Nodes/Particles)
+    // 8. Custom Interactive Canvas Background System (Nodes/Particles/Glittering Stars)
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
 
     let particlesArray = [];
-    const maxParticles = 80;
+    const maxParticles = 120; // Increased density for a starry glitter field
     
     // Mouse properties
     const mouse = {
         x: null,
         y: null,
-        radius: 130 // Interactive distance limit
+        radius: 140
     };
 
     window.addEventListener('mousemove', (e) => {
@@ -442,12 +442,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        initParticles(); // Reinitialize coordinates on screen resize
+        initParticles();
     }
 
     window.addEventListener('resize', resizeCanvas);
 
-    // Particle Object blueprint
+    // Particle/Star Object blueprint
     class Particle {
         constructor(x, y, directionX, directionY, size, color) {
             this.x = x;
@@ -455,15 +455,44 @@ document.addEventListener('DOMContentLoaded', () => {
             this.directionX = directionX;
             this.directionY = directionY;
             this.size = size;
-            this.color = color;
+            this.baseColor = color;
+            
+            // Glitter Star properties (55% stars, 45% standard nodes)
+            this.isStar = Math.random() > 0.45;
+            if (this.isStar) {
+                this.alpha = Math.random();
+                this.alphaSpeed = 0.003 + Math.random() * 0.012;
+                this.maxAlpha = 0.35 + Math.random() * 0.55;
+                // Stars move very slowly to create a stationary glittering background
+                this.directionX *= 0.15;
+                this.directionY *= 0.15;
+                // Vibrant color palettes for twinkling stars
+                const starColors = [
+                    'rgba(0, 242, 254, ',   // Teal/Cyan
+                    'rgba(240, 147, 251, ',  // Pink/Purple
+                    'rgba(255, 75, 92, ',    // Red/Pink
+                    'rgba(245, 158, 11, ',   // Gold/Orange
+                    'rgba(255, 255, 255, '   // White
+                ];
+                this.starColorBase = starColors[Math.floor(Math.random() * starColors.length)];
+            }
         }
 
         // Draw particle coordinates
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            ctx.fillStyle = this.color;
+            if (this.isStar) {
+                ctx.fillStyle = `${this.starColorBase}${this.alpha})`;
+                // Subtle outer star glow
+                ctx.shadowBlur = this.size * 3;
+                ctx.shadowColor = `${this.starColorBase}0.5)`;
+            } else {
+                ctx.fillStyle = this.baseColor;
+                ctx.shadowBlur = 0;
+            }
             ctx.fill();
+            ctx.shadowBlur = 0; // Reset shadows for other draws
         }
 
         // Update positions & check borders/mouse interactions
@@ -476,23 +505,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.directionY = -this.directionY;
             }
 
-            // Mouse interact (push away slightly)
+            // Twinkle effect for stars
+            if (this.isStar) {
+                this.alpha += this.alphaSpeed;
+                if (this.alpha > this.maxAlpha || this.alpha < 0.05) {
+                    this.alphaSpeed = -this.alphaSpeed;
+                }
+            }
+
+            // Mouse interact (gently push away standard nodes)
             if (mouse.x !== null && mouse.y !== null) {
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < mouse.radius + this.size) {
                     if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                        this.x += 2;
+                        this.x += 1.5;
                     }
                     if (mouse.x > this.x && this.x > this.size * 10) {
-                        this.x -= 2;
+                        this.x -= 1.5;
                     }
                     if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-                        this.y += 2;
+                        this.y += 1.5;
                     }
                     if (mouse.y > this.y && this.y > this.size * 10) {
-                        this.y -= 2;
+                        this.y -= 1.5;
                     }
                 }
             }
@@ -509,22 +546,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate particles list
     function initParticles() {
         particlesArray = [];
-        let numberOfParticles = Math.min((canvas.width * canvas.height) / 18000, maxParticles);
+        let numberOfParticles = Math.min((canvas.width * canvas.height) / 14000, maxParticles);
         
         for (let i = 0; i < numberOfParticles; i++) {
-            let size = Math.random() * 2 + 1; // Nodes size
+            let size = Math.random() * 2 + 1; // Node sizing
             let x = Math.random() * (canvas.width - size * 2 - size * 2) + size * 2;
             let y = Math.random() * (canvas.height - size * 2 - size * 2) + size * 2;
             
-            // Velocities
-            let directionX = (Math.random() * 0.4) - 0.2;
-            let directionY = (Math.random() * 0.4) - 0.2;
+            // Random velocities
+            let directionX = (Math.random() * 0.3) - 0.15;
+            let directionY = (Math.random() * 0.3) - 0.15;
             
-            // Random color from theme (cyan, purple, grey)
+            // Vibrant node connection colors
             const colors = [
-                'rgba(6, 182, 212, 0.4)',  // Translucent Cyan
-                'rgba(139, 92, 246, 0.35)', // Translucent Purple
-                'rgba(148, 163, 184, 0.2)'  // Translucent Gray
+                'rgba(0, 242, 254, 0.45)',   // Translucent Cyan
+                'rgba(240, 147, 251, 0.4)',   // Translucent Purple
+                'rgba(255, 75, 92, 0.3)',     // Translucent Pink
+                'rgba(148, 163, 184, 0.15)'   // Translucent Gray
             ];
             let color = colors[Math.floor(Math.random() * colors.length)];
 
@@ -532,20 +570,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Draw lines between close nodes
+    // Draw lines between close standard nodes
     function connect() {
         let opacityValue = 1;
         for (let a = 0; a < particlesArray.length; a++) {
+            if (particlesArray[a].isStar) continue; // Keep star background clean, connect nodes only
+
             for (let b = a + 1; b < particlesArray.length; b++) {
+                if (particlesArray[b].isStar) continue;
+
                 let dx = particlesArray[a].x - particlesArray[b].x;
                 let dy = particlesArray[a].y - particlesArray[b].y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 140) {
                     opacityValue = 1 - (distance / 140);
-                    // Connection line color maps to proximity gradient
-                    ctx.strokeStyle = `rgba(6, 182, 212, ${opacityValue * 0.08})`;
-                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${opacityValue * 0.05})`;
+                    ctx.lineWidth = 0.8;
                     ctx.beginPath();
                     ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
                     ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -559,6 +600,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
+        // Draw colorful mouse radial background spotlight
+        if (mouse.x !== null && mouse.y !== null) {
+            let radialGlow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 180);
+            radialGlow.addColorStop(0, 'rgba(0, 242, 254, 0.07)');
+            radialGlow.addColorStop(0.5, 'rgba(240, 147, 251, 0.03)');
+            radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = radialGlow;
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 180, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
         // Draw subtle digital horizontal background lines
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.003)';
         ctx.lineWidth = 1;
