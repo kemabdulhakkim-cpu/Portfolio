@@ -114,7 +114,7 @@ export default function Hero() {
 
             <a
               href="/assets/Abdul_Hakkim_T_Resume.pdf"
-              download
+              download="Abdul_Hakkim_T_Resume.pdf"
               className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/5 border border-white/10 hover:border-cyan-accent/50 text-white font-semibold transition-all duration-300 hover:bg-white/10 hover:scale-105"
             >
               <span>Download CV</span>

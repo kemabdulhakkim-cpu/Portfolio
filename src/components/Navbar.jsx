@@ -107,7 +107,7 @@ export default function Navbar() {
         <div className="hidden xl:block">
           <a
             href="/assets/Abdul_Hakkim_T_Resume.pdf"
-            download
+            download="Abdul_Hakkim_T_Resume.pdf"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-cyan-accent/50 text-white font-medium text-sm transition-all duration-300 hover:bg-cyan-accent/10 hover:-translate-y-0.5 shadow-md shadow-black/10 group btn-glow-cyan"
           >
             <FaDownload className="text-cyan-accent group-hover:animate-bounce" />
@@ -162,7 +162,7 @@ export default function Navbar() {
 
         <a
           href="/assets/Abdul_Hakkim_T_Resume.pdf"
-          download
+          download="Abdul_Hakkim_T_Resume.pdf"
           className="mt-auto flex items-center justify-center gap-2 w-full py-3 rounded-full bg-cyan-accent text-cyber-dark font-semibold transition-all duration-300 hover:bg-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]"
         >
           <FaDownload />
