@@ -3,23 +3,27 @@
 
 :root {
     /* Color Palette */
-    --bg-primary: #070a13;
-    --bg-secondary: #0c1122;
-    --card-bg: rgba(13, 18, 38, 0.45);
-    --card-border: rgba(255, 255, 255, 0.05);
-    --card-border-focus: rgba(6, 182, 212, 0.4);
+    --bg-primary: #05070e;
+    --bg-secondary: #090c17;
+    --card-bg: rgba(13, 18, 38, 0.55);
+    --card-border: rgba(255, 255, 255, 0.07);
+    --card-border-focus: rgba(0, 242, 254, 0.5);
     
-    --color-cyan: #06b6d4;
-    --color-purple: #8b5cf6;
+    --color-cyan: #00f2fe;
+    --color-purple: #f093fb;
+    --color-pink: #ff4b5c;
+    --color-blue: #4facfe;
+    --color-green: #10b981;
+    --color-orange: #f59e0b;
     --color-white: #f8fafc;
     --color-gray-light: #cbd5e1;
     --color-gray-muted: #64748b;
-    --color-gray-dark: #334155;
+    --color-gray-dark: #1e293b;
     
-    --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    --gradient-cyan-glow: rgba(6, 182, 212, 0.15);
-    --gradient-purple-glow: rgba(139, 92, 246, 0.15);
-    --gradient-card-glow: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    --gradient-accent: linear-gradient(135deg, #00f2fe 0%, #4facfe 35%, #f093fb 70%, #ff4b5c 100%);
+    --gradient-cyan-glow: rgba(0, 242, 254, 0.2);
+    --gradient-purple-glow: rgba(240, 147, 251, 0.2);
+    --gradient-card-glow: linear-gradient(135deg, rgba(0, 242, 254, 0.07) 0%, rgba(240, 147, 251, 0.07) 100%);
     
     /* Layout & Transitions */
     --font-sans: 'Outfit', sans-serif;
@@ -29,9 +33,9 @@
     --transition-normal: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     
-    --shadow-neon-cyan: 0 0 15px rgba(6, 182, 212, 0.3);
-    --shadow-neon-purple: 0 0 15px rgba(139, 92, 246, 0.3);
-    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --shadow-neon-cyan: 0 0 20px rgba(0, 242, 254, 0.4);
+    --shadow-neon-purple: 0 0 20px rgba(240, 147, 251, 0.4);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Reset and Base Styles */
@@ -50,6 +54,11 @@ html {
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-primary);
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(0, 242, 254, 0.06) 0px, transparent 45%),
+        radial-gradient(at 90% 10%, rgba(240, 147, 251, 0.06) 0px, transparent 45%),
+        radial-gradient(at 50% 80%, rgba(139, 92, 246, 0.06) 0px, transparent 45%),
+        radial-gradient(at 80% 90%, rgba(255, 75, 92, 0.04) 0px, transparent 40%);
     color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
@@ -409,10 +418,18 @@ a {
     color: var(--color-gray-light);
 }
 
+.social-icon-link i,
+.social-icon-link svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.2px;
+    display: inline-block;
+}
+
 .social-icon-link:hover {
     color: var(--color-cyan);
     border-color: var(--color-cyan);
-    background: rgba(6, 182, 212, 0.05);
+    background: rgba(0, 242, 254, 0.05);
     box-shadow: var(--shadow-neon-cyan);
     transform: translateY(-3px);
 }
@@ -1238,6 +1255,28 @@ a {
     margin-top: 16px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cert-link-btn {
+    font-size: 0.78rem;
+    color: var(--color-cyan);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+}
+
+.cert-link-btn:hover {
+    color: var(--color-purple);
+    text-decoration: underline;
+}
+
+.cert-link-btn svg {
+    width: 14px;
+    height: 14px;
 }
 
 .cert-status {
@@ -1248,7 +1287,8 @@ a {
     gap: 4px;
 }
 
-.cert-status i {
+.cert-status i,
+.cert-status svg {
     width: 14px;
     height: 14px;
 }
@@ -1475,10 +1515,20 @@ a {
     color: var(--color-gray-muted);
 }
 
+.footer-socials a i,
+.footer-socials a svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2px;
+    display: inline-block;
+}
+
 .footer-socials a:hover {
     color: var(--color-cyan);
     border-color: var(--color-cyan);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-neon-cyan);
+    background: rgba(0, 242, 254, 0.05);
 }
 
 .copyright-text {
