@@ -1,0 +1,10 @@
+# Treat PDF files as binary to prevent line-ending corruption
+*.pdf binary
+
+# Other common binary types
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
