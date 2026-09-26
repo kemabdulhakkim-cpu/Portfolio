@@ -4,20 +4,5 @@
       "source": "/((?!assets/).*)",
       "destination": "/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/assets/(.*\\.pdf)",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "inline"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/pdf"
-        }
-      ]
-    }
   ]
 }
