@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Content-Disposition",
-          "value": "attachment"
+          "value": "inline"
         },
         {
           "key": "Content-Type",
